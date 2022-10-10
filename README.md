@@ -20,7 +20,7 @@ Structure of the code:
     - pot(x) in user_input.py takes the classical x (position) as input and returns the potential V[nquant,nquant] and its derivative dv_x[nquant,nquant,nclass]
     - init_cond() - this is called for each trajectory. returns the initial FSSH state of the system: x, v (position, velocity) ci (quantum coefficients) and lamda (active state).
   - Setting variable nprint=1 will print detailed information for each trajectory. Useful for debugging (for ex. can see if energy is conserved or not).   
-  - Typically values: ntraj~100, dtc~20 au, dtq~1 au - though these values can depend significantly on the system under study. Make sure energy is conserved and final results are converged w.r.t. the parameters.
+  - Typically values: ntraj\~100, dtc\~20 au, dtq\~1 au - though these values can depend significantly on the system under study. Make sure energy is conserved and final results are converged w.r.t. the parameters.
  
 Things to try (excercies):
   - Change dtc and dtq and re-run to check if the plot of density matrix changes.
