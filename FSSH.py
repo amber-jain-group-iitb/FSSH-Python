@@ -1,6 +1,7 @@
 ## Surface hopping code
 print("WARNING: DECOHERENCE IS NOT INCLUDED")
 print("WARNING: ON FRUSTRATED HOP, STATE WILL NOT CHANGE AND VELOCITY WILL NOT BE REVERSED")
+print("WARNING: Calculating electronic density matrix as rho(i,j)=ci* cj")
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ from scipy.linalg import logm
 from user_input import *
 
 ###########################################################################
-## Solves for eigenfn, eigenenergies
+## Solves for eigenfn, eigenenergies of the electronic Hamiltonian at a fixed 
 ## Calculates time derivative matrix T_der, potential energy: pot_en and acceleration: acc
 def tise(x,phi_old):
   Hamil,grad_H=pot(x)
@@ -28,7 +29,7 @@ def tise(x,phi_old):
   return(pot_en,acc,T_der,phi,phi_old,Ei,grad_H)
 ###########################################################################
 
-## Classical evolution on dtc time step
+## Classical evolution (x,v) on dtc time step
 def evolve_classical(x,v,acc,phi_old):
   ## Velocity Verlet scheme
   ## https://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet
@@ -109,12 +110,13 @@ def evolve_quantum(ci,Ei,T_der):
     ci=evolve_rk4(ci,Ei,dtq,T_der)
     if(k==0):
       hop_prob=compute_hop_prob(dtq,ci,T_der)
-      k=check_hop(hop_prob)
+      k=check_hop(hop_prob)   ## Returns k=0 if hop does not occur.
   return(k,ci,hop_prob)
 ###########################################################################
 
 ## Calculating pop as average of fraction of trajectories on each state
 ## rho is the density matrix calculated naively as ci*.cj
+## CAREFUL: ci*.cj can give wrong long time answers
 def compute_averages(k,ci,lamda):
   pop[lamda,k]+=1
   for i in range(nquant):
@@ -194,24 +196,22 @@ def averages(pop,rho):
   return()
 ###########################################################################
 
+## Defining required variables
 acc=np.zeros(nclass)
-#Ei=np.zeros(nquant)
-#hop_prob=np.zeros(nquant)
 phi=np.zeros((nquant,nquant))
-#phi_old=np.zeros((nquant,nquant))
-#T_der=np.zeros((nquant,nquant))
-#Hamil=np.zeros((nquant,nquant))
-#grad_H=np.zeros((nquant,nquant,nclass))
 
 pop=np.zeros((nquant,ntim))
 rho=np.zeros((nquant,nquant,ntim),dtype=complex)
+
+## Opening files
 output = open('energy.out', 'w')
 pop_file = open('pop.out', 'w')
 rho_file = open('rho.out', 'w')
 
 for i in range(ntraj):
-  x,v,lamda,ci=init_cond()
+  x,v,lamda,ci=init_cond()    ## init_cond() function in user_input.py
   print("traj number,x,v",i,x,v)
+  ## Initializing variables at t=0. Specifically, phi_old and acc are necessary for evolution.
   Hamil,grad_H=pot(x)
   Ei,phi_old=np.linalg.eigh(Hamil)
   pot_en,acc,T_der,phi,phi_old,Ei,grad_H = tise(x,phi_old)
