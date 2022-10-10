@@ -6,13 +6,13 @@ Note that these codes do NOT include decoherence, correct treatment of frustrate
 Results of this simulations can be compared to numerically exact results from https://github.com/amber-jain-group-iitb/Exact-QD-Python
 
 Running the codes:
-  Download both FSSH.py and user_input.py in the same location.
-  Requires Python3, with numpy, scipy, and matplotlib libraries. All are freely available.
-  Running on terminal: cd to the directory where the above 2 files are stored. Issue on the terminal: python3 FSSH.py
-  Can use Python editors (such as Pycharm) to run the code if not comfortable with terminal.
-  The codes will reproduce the results for the potential in Fig. 1(a) (non-parallel surfaces) of the review. The code will run 100 trajectories with dtc=20 a.u., and total time=2000 a.u.
-  On running, the code will print the initial position and velocity for each trajectory, and after 100 trajectories will create a plot for the absolute values of the density matrix as a function of time (Fig. 3 of review).
-  The code should take 1-2 mins on a regular desktop.
+  - Download both FSSH.py and user_input.py in the same location.
+  - Requires Python3, with numpy, scipy, and matplotlib libraries. All are freely available.
+  - Running on terminal: cd to the directory where the above 2 files are stored. Issue on the terminal: python3 FSSH.py
+  - Can use Python editors (such as Pycharm) to run the code if not comfortable with terminal.
+  - The codes will reproduce the results for the potential in Fig. 1(a) (non-parallel surfaces) of the review. The code will run 100 trajectories with dtc=20 a.u., and total time=2000 a.u.
+  - On running, the code will print the initial position and velocity for each trajectory, and after 100 trajectories will create a plot for the absolute values of the density matrix as a function of time (Fig. 3 of review).
+  - The code should take 1-2 mins on a regular desktop.
 
 Structure of the code:
   FSSH.py - contains the main code for the FSSH algorithm. Detailed algorithm in the review (Sec. 9).
