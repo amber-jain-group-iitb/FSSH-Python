@@ -208,14 +208,18 @@ output = open('energy.out', 'w')
 pop_file = open('pop.out', 'w')
 rho_file = open('rho.out', 'w')
 
+## Looping over the number of trajectories
 for i in range(ntraj):
+  ## Initializing the trajectory
   x,v,lamda,ci=init_cond()    ## init_cond() function in user_input.py
   print("traj number,x,v",i,x,v)
   ## Initializing variables at t=0. Specifically, phi_old and acc are necessary for evolution.
   Hamil,grad_H=pot(x)
   Ei,phi_old=np.linalg.eigh(Hamil)
   pot_en,acc,T_der,phi,phi_old,Ei,grad_H = tise(x,phi_old)
+  ## Evolving the trajectory for the required time
   for j in range(ntim):
     pop,rho,x,v,acc,lamda,ci,phi_old=evolve(x,v,acc,lamda,ci,j,phi_old)
 
+## After all trajectories are evolved, averaging the observables and plotting them.
 averages(pop,rho)
