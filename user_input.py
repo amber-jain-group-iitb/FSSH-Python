@@ -1,4 +1,4 @@
-## File that user has to provide for FSSH simulations
+## File that user has to provide for FSSH simulations performed in FSSH.py
 ## Contains parameters for simulation, potential and the initial conditions
 
 import numpy as np
