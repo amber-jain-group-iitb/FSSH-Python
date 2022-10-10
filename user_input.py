@@ -34,6 +34,7 @@ nprint=0
 ###############################################
 ## Input: x(nclass)
 ## Returns: Potential and its derivative
+## Potential V[nquant,nquant], derivative: dv_dx[nquant,nquant,nclass]
 def pot(x):
     V=np.zeros((nquant,nquant))
     dv_dx=np.zeros((nquant,nquant,nclass))
@@ -53,6 +54,9 @@ def pot(x):
 
 ## Initial condition
 ## Returns position, velocity, initial state, and ci's
+## Choosing position from a Gaussian distribution exp(-(x-x0)/(2sigma_x**2)), 
+## x0=-5 au, sigma_x=1/sqrt(2) au, consistent with the corresponding exact QM calculation
+## momentum is chosen with a distribution with sigma_x.sigma_p=hbar
 def init_cond():
     k=np.sqrt(2*mass*0.03)
     sig_x=1.0/np.sqrt(2.0)
