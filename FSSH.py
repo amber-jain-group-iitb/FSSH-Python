@@ -1,4 +1,6 @@
-## Surface hopping code
+## A basic fewest switches surface hopping code. Tully JCP 93, 1061, 1990.
+## Requires the file user_input.py for simulation parameters, potential energy surface and initial conditions.
+
 print("WARNING: DECOHERENCE IS NOT INCLUDED")
 print("WARNING: ON FRUSTRATED HOP, STATE WILL NOT CHANGE AND VELOCITY WILL NOT BE REVERSED")
 print("WARNING: Calculating electronic density matrix as rho(i,j)=ci* cj")
