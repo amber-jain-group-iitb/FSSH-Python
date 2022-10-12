@@ -56,11 +56,11 @@ def pot(x):
 ## Returns position, velocity, initial state, and ci's
 ## Choosing position from a Gaussian distribution exp(-(x-x0)/(2sigma_x**2)), 
 ## x0=-5 au, sigma_x=1/sqrt(2) au, consistent with the corresponding exact QM calculation
-## momentum is chosen with a distribution with sigma_x.sigma_p=hbar
+## momentum is chosen with a distribution with sigma_x.sigma_p=hbar/2
 def init_cond():
     k=np.sqrt(2*mass*0.03)
     sig_x=1.0/np.sqrt(2.0)
-    sig_v=1/mass[0]*hbar/sig_x
+    sig_v=0.5/mass[0]*hbar/sig_x
     x[0]=-5.0 + sig_x*np.random.normal()
     v[0]=hbar*k/mass[0] + sig_v*np.random.normal()
     lamda=0
